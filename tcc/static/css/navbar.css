@@ -1,0 +1,31 @@
+.navbar{
+    background: #2f2841;
+}
+
+.navbar-brand {
+    color: #f0ffffde;
+}
+
+.navbar-brand:hover{
+    color: #f0ffff94;
+}
+
+.nav-link{
+    color: #f0ffffde;
+    text-decoration: none;
+}
+
+.nav-link:hover{
+    color: #f0ffff94;
+}
+
+.btn{
+    background: #00ff88;
+    color: #2f2841;
+    margin-right: .5rem;
+    box-shadow: 0px 10px 40px -12px #00ff8052;
+}
+
+.btn:hover{
+    background: #00ff8052;
+}

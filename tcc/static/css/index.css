@@ -1,0 +1,211 @@
+.sidebar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 110px;
+    height: 100vh;
+    padding: 0 1.7rem;
+    color: #f0ffffde;
+    overflow: hidden;
+    transition: all 0.5s linear;
+    background: #2f2841;
+    
+}
+
+.sidebar:hover{
+    width: 240px;
+    transition: 0.5s;
+}
+
+
+.logo{
+    height: 80px;
+    padding: 16px;
+}
+
+.menu {
+    height: 88%;
+    position: relative;
+    list-style: none;
+    padding: 0;
+}
+
+.menu li {
+    padding: 1rem;
+    margin: 8px 0;
+    border-radius: 8px;
+    transition: all 0.5s ease-in-out;
+}
+
+.menu a {
+    color: #00ff88;
+    font-size: 12px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.menu a span{
+    overflow: hiddens;
+    
+}
+
+.menu a i {
+    font-size: 1rem;
+}
+
+.logout {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.main--content {
+    position: relative;
+    background: #f0ffff94;
+    width: 100vw;
+    padding: .5rem;
+}
+
+.header--wrapper img{
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.header--wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background: #514869;
+    border-radius: 10px;
+    padding: 10px 2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0px 10px 40px #00000056;
+}
+
+.header--title {
+    color: #f0ffff94;
+}
+
+.user--info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+.main--title{
+    text-align: center;
+
+}
+
+.tabular-wrpper {
+    background: #f0ffff94;
+    margin-top: 1rem;
+    border-radius: 10spx;
+    padding: 2rem;
+}
+
+.table-container {
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #2f2841;
+    color: #f0ffff94;
+}
+
+th {
+    padding: 15px;
+    text-align: left;
+}
+
+tbody {
+    background: #514869;
+}
+
+td {
+    padding: 15px;
+    font-size: 14px;
+    color: #f0ffff94;
+}
+.verificar {
+    text-align: center;
+}
+
+.comprar {
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background: hsl(256, 15%, 35%);
+}
+
+tfoot{
+    background: #00000056;
+    font-weight: bold;
+    color: #514869;
+}
+
+tfoot td {
+    padding: 15px;
+    color: #2f2841;
+}
+
+#btn-verificar {
+    font-size: 8pt;
+    font-weight: 800;
+    padding: 10px;
+    margin: 25px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    letter-spacing: 3px;
+    color: #2b134b;
+    background: #00ff88;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #00ff8052;
+    align-items: end;
+}
+
+#btn-comprar {
+    font-size: 8pt;
+    font-weight: 800;
+    padding: 10px;
+    margin: 25px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    letter-spacing: 3px;
+    color: #2b134b;
+    background: #00ff88;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #00ff8052;
+    align-items: end;
+}
+
+#btn-cancelar {
+    font-size: 8pt;
+    font-weight: 800;
+    padding: 10px;
+    margin: 25px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    letter-spacing: 3px;
+    color: #2b134b;
+    background: #e41b6f;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #4d062752;
+}

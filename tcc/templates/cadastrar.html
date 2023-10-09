@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" >
+  <link rel="stylesheet" href="../static/css/cadastrar.css">
+  <title>sign-up</title>
+</head>
+<body>
+<div class="main-sign-up">
+    <div class="left-sign-up">
+        <h1>Bem-vindo<br> a Página de Cadastro</h1>
+        <img src="../static/img/svg/sign-up.svg" alt="Estoque" class="left-sign-up-img">
+    </div>
+    <div class="right-sign-up">
+        <div class="card-sign-up">
+          <h1>Cadastro</h1>
+            <div class="textfield">
+                <label for="nome">Nome</label>
+                <input type="text" name="nome" placeholder="Nome">
+            </div>
+            <div class="textfield">
+                <label for="sobrenome">Sobrenome</label>
+                <input type="text" name="sobrenome" placeholder="Sobrenome">
+            </div>
+            <div class="textfield">
+                <label for="email">E-mail</label>
+                <input type="text" name="email" placeholder="E-mail">
+            </div>
+            <div class="textfield">
+                <label for="cpf">CPF</label>
+                <input type="text" name="cpf" placeholder="CPF">
+            </div>
+            <div class="textfield">
+                <label for="senha">Senha</label>
+                <input type="password" name="senha" placeholder="Senha" required>
+            </div>
+            <button class="btn-sign-up">Cadastrar</button>
+            <div class="back-login">
+               <a class="a-login" href="{{url_for('login')}}">Já sou Cadastrado</a>
+            </div>
+        </div>
+    </div>
+  </div>
+</body>
+</html>
