@@ -32,6 +32,6 @@ def stock():
     return render_template("estoque.html")
 
 
-@app.route("/about")
-def about():
-    return render_template("sobre.html")
+@app.route("/home")
+def home():
+    return render_template("principal.html")
