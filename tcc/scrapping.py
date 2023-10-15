@@ -20,29 +20,57 @@ pegar_valor_ml = []
 dados_produtos = {}
 
 
+# def pegandoMenorValor(dados_produtos):
+#     site_menor_preco = min(
+#         dados_produtos, key=lambda x: min(dados_produtos[x]["preco"])
+#     )
+#     menor_preco = min(dados_produtos[site_menor_preco]["preco"])
+#     nome_produto = dados_produtos[site_menor_preco]["nome"]
+#     link_produto = dados_produtos[site_menor_preco]["link"]
+
+#     produto_mais_barato = {
+#         "site": site_menor_preco,
+#         "nome": nome_produto,
+#         "preco": menor_preco,
+#         "link": link_produto,
+#     }
+
+#     objeto_json = json.dumps(produto_mais_barato, indent=2)
+#     nome_arquivo_json = "resultado.json"
+
+#     with open(nome_arquivo_json, "w") as file:
+#         file.write(objeto_json)
+#     print(f"Arquivo JSON '{nome_arquivo_json}' Criado com Sucesso!!")
+
+#     return nome_arquivo_json
+
+
 def pegandoMenorValor(dados_produtos):
-    site_menor_preco = min(
-        dados_produtos, key=lambda x: min(dados_produtos[x]["preco"])
-    )
-    menor_preco = min(dados_produtos[site_menor_preco]["preco"])
-    nome_produto = dados_produtos[site_menor_preco]["nome"]
-    link_produto = dados_produtos[site_menor_preco]["link"]
+    menor_preco = float("inf")
+    site_menor_preco = ""
+
+    for site, info in dados_produtos.items():
+        preco = info["preco"]
+        menor_site_preco = min(preco)
+        if menor_site_preco < menor_preco:
+            menor_preco = menor_site_preco
+            site_menor_preco = site
 
     produto_mais_barato = {
-        "site": site_menor_preco,
-        "nome": nome_produto,
-        "preco": menor_preco,
-        "link": link_produto,
+        "site_menor_preco": {
+            "fornecedor": site_menor_preco,  # Adiciona o nome do site
+            "nome": dados_produtos[site_menor_preco]["nome"],
+            "preco": menor_preco,
+            "link": dados_produtos[site_menor_preco]["link"],
+        }
     }
 
-    objeto_json = json.dumps(produto_mais_barato, indent=2)
     nome_arquivo_json = "resultado.json"
-
-    with open(nome_arquivo_json, "w") as file:
-        file.write(objeto_json)
+    with open(nome_arquivo_json, "w") as arquivo:
+        json.dump(produto_mais_barato, arquivo)
     print(f"Arquivo JSON '{nome_arquivo_json}' Criado com Sucesso!!")
 
-    return nome_arquivo_json
+    return produto_mais_barato
 
 
 def formatando(preco, site):
@@ -160,23 +188,6 @@ def rapando_dados(site, produtos):
         print(f"{site}==> Site não Cadastrado !!!!!")
 
 
-def obter_dados_produtos():
-    dados = {dados_produtos}
-    return dados
-
-
-# def convertendo_para_json():
-#     resultado = produtos_mais_barato
-#     objeto_json = json.dumps(resultado, indent=2)
-#     nome_arquivo_json = "resultado.json"
-
-#     with open(nome_arquivo_json, "w") as file:
-#         file.write(objeto_json)
-#     print(f"Arquivo JSON '{nome_arquivo_json}' Criado com Sucesso!!")
-
-#     return nome_arquivo_json
-
-
 def run(playwright):
     # Inicializando os Sites
     browser = playwright.firefox.launch(headless=True)
@@ -191,7 +202,6 @@ def run(playwright):
     page2.goto(googleShopping)
     page3.goto(zoom)
     page4.goto(mercadolivre)
-    sleep(3)
     # # ======= 1º Pagina Amazon ========
     site = "Amazon"
 
@@ -206,7 +216,6 @@ def run(playwright):
     rapando_dados(site, produtos)
     # produtos_mais_barato = pegandoMenorValor(dados_produtos)
     # print(produtos_mais_barato)
-    sleep(3)
 
     # ---------------------
 
@@ -221,7 +230,6 @@ def run(playwright):
     rapando_dados(site, produtos)
     # produtos_mais_barato = pegandoMenorValor(dados_produtos)
     # print(produtos_mais_barato)
-    sleep(3)
     # ---------------------
 
     # ======= 3º Pagina Zoom ========
@@ -235,7 +243,6 @@ def run(playwright):
     rapando_dados(site, produtos)
     # produtos_mais_barato = pegandoMenorValor(dados_produtos)
     # print(produtos_mais_barato)
-    sleep(3)
 
     # ---------------------
 
@@ -251,8 +258,6 @@ def run(playwright):
         has_text=equipamento
     )
     rapando_dados(site, produtos)
-
-    sleep(3)
 
     # ---------------------
 

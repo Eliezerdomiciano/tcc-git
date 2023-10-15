@@ -30,11 +30,8 @@ def stock():
         print("botão acionado")
         import scrapping as sp
 
-        # Obtendo Dados
-        dados_produtos = sp.obter_dados_produtos
-
+        dados_produtos = sp.dados_produtos
         nome_arquivo = sp.pegandoMenorValor(dados_produtos)
-        print(nome_arquivo)
         return jsonify({"arquivo.json": nome_arquivo})
 
     return render_template("estoque.html")
