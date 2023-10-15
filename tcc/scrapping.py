@@ -1,5 +1,6 @@
 from playwright.sync_api import sync_playwright
 from time import sleep
+import json
 
 amazon = "https://www.amazon.com.br/"
 googleShopping = "https://shopping.google.com/"
@@ -20,25 +21,28 @@ dados_produtos = {}
 
 
 def pegandoMenorValor(dados_produtos):
-    menorValor = float("inf")
-    produto_mais_barato = {}
+    site_menor_preco = min(
+        dados_produtos, key=lambda x: min(dados_produtos[x]["preco"])
+    )
+    menor_preco = min(dados_produtos[site_menor_preco]["preco"])
+    nome_produto = dados_produtos[site_menor_preco]["nome"]
+    link_produto = dados_produtos[site_menor_preco]["link"]
 
-    for site, dados in dados_produtos.items():
-        precos = dados["preco"]
-        links = dados["link"]
-        nomes = dados["nome"]
+    produto_mais_barato = {
+        "site": site_menor_preco,
+        "nome": nome_produto,
+        "preco": menor_preco,
+        "link": link_produto,
+    }
 
-        menorValor = min(precos)
-        produto_mais_barato = {
-            "site": site,
-            "preco": menorValor,
-            "link": links,
-            "nome": nomes,
-        }
-    return produto_mais_barato
+    objeto_json = json.dumps(produto_mais_barato, indent=2)
+    nome_arquivo_json = "resultado.json"
 
+    with open(nome_arquivo_json, "w") as file:
+        file.write(objeto_json)
+    print(f"Arquivo JSON '{nome_arquivo_json}' Criado com Sucesso!!")
 
-import json
+    return nome_arquivo_json
 
 
 def formatando(preco, site):
@@ -156,10 +160,21 @@ def rapando_dados(site, produtos):
         print(f"{site}==> Site não Cadastrado !!!!!")
 
 
-def convertendo_para_json(dados_produtos):
-    objeto_json = json.dumps(dados_produtos, indent=2)
-    with open("result_raspagem_dados.json", "w") as file:
-        file.write(objeto_json)
+def obter_dados_produtos():
+    dados = {dados_produtos}
+    return dados
+
+
+# def convertendo_para_json():
+#     resultado = produtos_mais_barato
+#     objeto_json = json.dumps(resultado, indent=2)
+#     nome_arquivo_json = "resultado.json"
+
+#     with open(nome_arquivo_json, "w") as file:
+#         file.write(objeto_json)
+#     print(f"Arquivo JSON '{nome_arquivo_json}' Criado com Sucesso!!")
+
+#     return nome_arquivo_json
 
 
 def run(playwright):
@@ -189,7 +204,6 @@ def run(playwright):
     )
 
     rapando_dados(site, produtos)
-    convertendo_para_json(dados_produtos)
     # produtos_mais_barato = pegandoMenorValor(dados_produtos)
     # print(produtos_mais_barato)
     sleep(3)
@@ -205,7 +219,6 @@ def run(playwright):
     produtos = page2.locator("div#rso")
 
     rapando_dados(site, produtos)
-    convertendo_para_json(dados_produtos)
     # produtos_mais_barato = pegandoMenorValor(dados_produtos)
     # print(produtos_mais_barato)
     sleep(3)
@@ -220,7 +233,6 @@ def run(playwright):
 
     produtos = page3.locator("div.Paper_Paper__HIHv0", has_text=f"{equipamento}")
     rapando_dados(site, produtos)
-    convertendo_para_json(dados_produtos)
     # produtos_mais_barato = pegandoMenorValor(dados_produtos)
     # print(produtos_mais_barato)
     sleep(3)
@@ -239,12 +251,13 @@ def run(playwright):
         has_text=equipamento
     )
     rapando_dados(site, produtos)
-    convertendo_para_json(dados_produtos)
-    # produtos_mais_barato = pegandoMenorValor(dados_produtos)
-    # print(produtos_mais_barato)
+
     sleep(3)
 
     # ---------------------
+
+    produtos_mais_barato = pegandoMenorValor(dados_produtos)
+    print(produtos_mais_barato)
 
     context.close()
     browser.close()

@@ -1,7 +1,4 @@
-from flask import Flask, render_template
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
+from flask import Flask, render_template, request, jsonify
 
 
 app = Flask(__name__)
@@ -27,8 +24,19 @@ def registration():
     return render_template("cadastrar.html")
 
 
-@app.route("/stock")
+@app.route("/stock", methods=["GET", "POST"])
 def stock():
+    if request.method == "POST":
+        print("botão acionado")
+        import scrapping as sp
+
+        # Obtendo Dados
+        dados_produtos = sp.obter_dados_produtos
+
+        nome_arquivo = sp.pegandoMenorValor(dados_produtos)
+        print(nome_arquivo)
+        return jsonify({"arquivo.json": nome_arquivo})
+
     return render_template("estoque.html")
 
 
