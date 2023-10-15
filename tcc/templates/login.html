@@ -16,22 +16,23 @@
         <div class="card-login">
           <h1>LOGIN</h1>
             <div class="textfield">
-                <label for="usuario">Usuário</label>
-                <input type="text" name="usuario" placeholder="Usuário">
+                <label for="email">E-mail</label>
+                <input id="email" type="text" name="email" placeholder="Email@.com">
             </div>
             <div class="textfield">
                 <label for="senha">Senha</label>
-                <input type="password" name="senha" placeholder="Senha" required>
+                <input id="senha" type="password" name="senha" placeholder="Senha" required>
             </div>
-            <button class="btn-login">Login</button>
+            <button class="btn-login" id="login-btn">Login</button>
             <h2>Não possui Cadastro!!!</h2>
             <div class="go-sign-up">
-              <a href="{{url_for('registration')}}">Cadastre-se Aqui!!</a>
+              <a href="{{url_for('cadastro')}}">Cadastre-se Aqui!!</a>
             </div>
         </div>
     </div>
   </div>
-
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="../static/js/login.js"></script>
 </body>
 </html>
 

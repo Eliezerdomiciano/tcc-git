@@ -16,32 +16,37 @@
     <div class="right-sign-up">
         <div class="card-sign-up">
           <h1>Cadastro</h1>
-            <div class="textfield">
-                <label for="nome">Nome</label>
-                <input type="text" name="nome" placeholder="Nome">
-            </div>
-            <div class="textfield">
-                <label for="sobrenome">Sobrenome</label>
-                <input type="text" name="sobrenome" placeholder="Sobrenome">
-            </div>
-            <div class="textfield">
-                <label for="email">E-mail</label>
-                <input type="text" name="email" placeholder="E-mail">
-            </div>
-            <div class="textfield">
-                <label for="cpf">CPF</label>
-                <input type="text" name="cpf" placeholder="CPF">
-            </div>
-            <div class="textfield">
-                <label for="senha">Senha</label>
-                <input type="password" name="senha" placeholder="Senha" required>
-            </div>
-            <button class="btn-sign-up">Cadastrar</button>
+          
+                <div class="textfield">
+                    <label for="nome">Nome</label>
+                    <input id="nome" type="text" name="nome" placeholder="Nome">
+                </div>
+                <div class="textfield">
+                    <label for="sobrenome">Sobrenome</label>
+                    <input id="sobrenome" type="text" name="sobrenome" placeholder="Sobrenome">
+                </div>
+                <div class="textfield">
+                    <label for="email">E-mail</label>
+                    <input id="email" type="text" name="email" placeholder="E-mail">
+                </div>
+                <div class="textfield">
+                    <label for="cpf">CPF</label>
+                    <input id="cpf" type="text" name="cpf" placeholder="CPF">
+                </div>
+                <div class="textfield">
+                    <label for="senha">Senha</label>
+                    <input id="senha" type="password" name="senha" placeholder="Senha" required>
+                </div>
+                <button class="btn-sign-up" id="cadastrar">Cadastrar</button>
             <div class="back-login">
                <a class="a-login" href="{{url_for('login')}}">Já sou Cadastrado</a>
             </div>
+        
         </div>
     </div>
   </div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="../static/js/cadastrar.js"></script>
 </body>
 </html>
