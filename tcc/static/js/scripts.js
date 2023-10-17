@@ -4,21 +4,19 @@ document.getElementById("btn-pesquisar").addEventListener("click", function() {
     })
     .then(response => response.json())
     .then(data => {
-        // Acesse os dados corretamente
         const dados = data["arquivo.json"]["site_menor_preco"];
-
         const modal = document.getElementById("modal");
         const tbody = document.querySelector(".tbody-modal");
-        tbody.innerHTML = ''; // Limpa o conteúdo anterior
+        tbody.innerHTML = '';
 
-        // Preencha a tabela com os dados
         const row = document.createElement("tr");
         row.innerHTML = `
-            <td>${dados.nome}</td>
-            <td>R$${dados.preco},00</td>
-            <td>${dados.fornecedor}</td>
-            <td><button id="btn-close" onclick="fecharModal()">Fechar</button>
-            <button id="btn-comprar">Comprar</button>
+            <td id="nome_prod">${dados.nome}</td>
+            <td id="preco_prod">R$${dados.preco},00</td>
+            <td id="fornecedor_prod">${dados.fornecedor}</td>
+            <td>
+                <button id="btn-close" data-action="fecharModal">Fechar</button>
+                <button id="btn-comprar" data-action="abrirModalCompra">Comprar</button>
             </td>
         `;
         tbody.appendChild(row);
@@ -27,10 +25,32 @@ document.getElementById("btn-pesquisar").addEventListener("click", function() {
     });
 });
 
+// Ouvinte de evento para os botões dentro da tabela modal
+document.querySelector(".tbody-modal").addEventListener("click", function(event) {
+    if (event.target.getAttribute("data-action") === "fecharModal") {
+        fecharModal();
+    } else if (event.target.getAttribute("data-action") === "abrirModalCompra") {
+        abrirModalCompra();
+    }
+});
 
+function abrirModalCompra() {
+    const modalCompra = document.getElementById("modal-comprar");
+    const alerta = document.getElementById("alerta");
 
-function fecharModal() {
-    const modal = document.getElementById("modal");
-    modal.close();
-    console.log("Função fecharModal() chamada");
+    alerta.style.display = "none"; // Esconde o alerta inicialmente
+
+    modalCompra.showModal();
+
+    const btnConfirmarCompra = document.getElementById("btn-confirmar-compra");
+
+    btnConfirmarCompra.addEventListener("click", function () {
+        const quantidade = parseFloat(document.getElementById("quantidade").value);
+        if (quantidade > 0) {
+            console.log(`Compra confirmada para ${quantidade} unidades.`);
+            modalCompra.close();
+        } else {
+            alerta.style.display = "block"; // Exibe o alerta
+        }
+    });
 }

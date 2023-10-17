@@ -1,13 +1,38 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask_session import Session
+from flask_login import (
+    LoginManager,
+    login_user,
+    login_required,
+    current_user,
+    logout_user,
+    UserMixin,
+)
 from flask_bcrypt import Bcrypt
 
 import sqlite3
 
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "Minha senha mais secreta possivel"
-app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
+# Configuração da extensão Flask-Session
+app.config["SESSION_TYPE"] = "filesystem"
+app.config["SECRET_KEY"] = "MinhaChaveSecreta"
+Session(app)
 bcrypt = Bcrypt(app)
+
+# Adicione as configurações do Flask-Login
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+class User(UserMixin):
+    def __init__(self, id):
+        self.id = id
+
+
+@login_manager.user_loader
+def load_user(id):
+    return User(id)
 
 
 # Conectando ao banco de dados SQLite
@@ -30,7 +55,15 @@ cursor.execute(
 db.commit()
 
 
-# Criando um Class form
+# Middleware para proteger rotas
+def proteger_rotas(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return redirect(url_for("login"))
+        return f(*args, **kwargs)
+
+    return decorated_function
 
 
 @app.route("/")
@@ -38,9 +71,33 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
+    if request.method == "POST":
+        email = request.form.get("email")
+        senha = request.form.get("senha")
+
+        # Verifique as credenciais do usuário no banco de dados
+        conn = sqlite3.connect("my_database.db")
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM usuarios WHERE email = ?", (email,))
+        user = cursor.fetchone()
+        conn.close()
+
+        if user and bcrypt.check_password_hash(user[4], senha):
+            user_obj = User(user[0])
+            login_user(user_obj)
+            return redirect(url_for("home"))
+
     return render_template("login.html")
+
+
+# Rota para fazer logout
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("login"))
 
 
 @app.route("/authenticate", methods=["POST"])
@@ -53,17 +110,15 @@ def authenticate():
     cursor = conn.cursor()
 
     # Consulte o banco de dados para verificar as credenciais
-    cursor.execute(
-        "SELECT * FROM usuarios WHERE email = ? AND senha = ?", (email, senha)
-    )
+    cursor.execute("SELECT * FROM usuarios WHERE email = ?", (email,))
     user = cursor.fetchone()
 
-    conn.close()
-
-    if user:
+    if user and bcrypt.check_password_hash(user[4], senha):
         autenticado = True
     else:
         autenticado = False
+
+    conn.close()
 
     if autenticado:
         return "Login bem-sucedido"
@@ -101,6 +156,7 @@ def registration():
 
 
 @app.route("/stock", methods=["GET", "POST"])
+@login_required
 def stock():
     if request.method == "POST":
         print("botão acionado")
@@ -113,6 +169,8 @@ def stock():
     return render_template("estoque.html")
 
 
+# Rota para a página principal (apenas acessível para usuários autenticados)
 @app.route("/home")
+@login_required
 def home():
     return render_template("principal.html")

@@ -50,4 +50,30 @@
       </table>
       
   </dialog>
+  <dialog id="modal-comprar">
+    <div id="alerta" class="alerta" style="display: none;">
+        A quantidade deve ser maior que 0.
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    <h3>Comprar Produto</h3>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <form id="comprar-form">
+                        <label for="quantidade">Quantidade:</label>
+                        <input type="number" id="quantidade" min="0" value="0">
+                        <h2>Valor Total: R$<span id="valor-total">0.00</span></h2>
+                        <button id="btn-confirmar-compra">Confirmar Compra</button>
+                    </form>
+                </td>
+            </tr>
+    </tbody>
+    </table>
+</dialog>
 </div>
