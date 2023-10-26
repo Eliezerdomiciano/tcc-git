@@ -34,6 +34,7 @@ document.querySelector(".tbody-modal").addEventListener("click", function(event)
     }
 });
 
+// JavaScript
 function abrirModalCompra() {
     const modalCompra = document.getElementById("modal-comprar");
     const alerta = document.getElementById("alerta");
@@ -43,14 +44,19 @@ function abrirModalCompra() {
     modalCompra.showModal();
 
     const btnConfirmarCompra = document.getElementById("btn-confirmar-compra");
-
+    const quantidadeInput = document.getElementById("quantidade"); // Obtém o campo de entrada da quantidade
+    const precoProduto = parseFloat(document.getElementById("preco_prod").textContent.replace("R$", "").replace(",", ".")); // Obtém o valor do produto e converte para número
+    
     btnConfirmarCompra.addEventListener("click", function () {
-        const quantidade = parseFloat(document.getElementById("quantidade").value);
+        const quantidade = parseFloat(quantidadeInput.value);
+        const valorTotal = quantidade * precoProduto;
+
         if (quantidade > 0) {
-            console.log(`Compra confirmada para ${quantidade} unidades.`);
+            console.log(`Compra confirmada para ${quantidade} unidades. Valor total: R$${valorTotal.toFixed(2)}`);
             modalCompra.close();
         } else {
             alerta.style.display = "block"; // Exibe o alerta
         }
     });
+
 }

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'sidebar.html'%}
+<div class="main--content">
+
+    <div class="header--wrapper">
+        <div class="header--title">
+            <span>Terceiro</span>
+            <h2>Dashboard</h2>
+        </div>
+        <div class="user--info">
+        <img src="../static/img/minha.jpg" alt="">
+        </div>
+    </div>
+<div class="tabular--wrapper">
+    <h3 class="main--title">Lista de Equipamentos <br> para Manuteção</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+            <tr>
+                <th id="nome_cliente">Nome Cliente</th>
+                <th id="nomde_prod">Nome Produto</th>
+                <th id="marca">Marca</th>
+                <th id="numero_serial">Nº Serial</th>
+                <th id="os">Data Recebimento</th>
+                <th id="vl_orcamento">Orçamento</th>
+                <th class="Verificar">Status</th>
+            </tr>
+            <dialog>
+            <tbody>
+                <tr>
+                    <td>Eliezer</td>
+                    <td>Dvd 2din</td>
+                    <td>Pionner</td>
+                    <td>25846</td>
+                    <td>12/10/2023</td>
+                    <td>R$250,00</td>
+                    <td>
+                        <a class="btn btn-sm" id="btn-comprar">Aprovado</a>
+                        <a class="btn btn-sm" id="btn-cancelar">Reprovado</a>   
+                    </td>
+                </tr>
+            </tbody>
+            
+        </thead>
+        </table>
+
+{% endblock %}

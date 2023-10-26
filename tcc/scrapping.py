@@ -20,30 +20,6 @@ pegar_valor_ml = []
 dados_produtos = {}
 
 
-# def pegandoMenorValor(dados_produtos):
-#     site_menor_preco = min(
-#         dados_produtos, key=lambda x: min(dados_produtos[x]["preco"])
-#     )
-#     menor_preco = min(dados_produtos[site_menor_preco]["preco"])
-#     nome_produto = dados_produtos[site_menor_preco]["nome"]
-#     link_produto = dados_produtos[site_menor_preco]["link"]
-
-#     produto_mais_barato = {
-#         "site": site_menor_preco,
-#         "nome": nome_produto,
-#         "preco": menor_preco,
-#         "link": link_produto,
-#     }
-
-#     objeto_json = json.dumps(produto_mais_barato, indent=2)
-#     nome_arquivo_json = "resultado.json"
-
-#     with open(nome_arquivo_json, "w") as file:
-#         file.write(objeto_json)
-#     print(f"Arquivo JSON '{nome_arquivo_json}' Criado com Sucesso!!")
-
-#     return nome_arquivo_json
-
 
 def pegandoMenorValor(dados_produtos):
     menor_preco = float("inf")

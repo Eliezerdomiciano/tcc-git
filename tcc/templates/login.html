@@ -1,4 +1,5 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -15,6 +16,7 @@
     <div class="right-login">
         <div class="card-login">
           <h1>LOGIN</h1>
+          <form action="/login" method="post" class="form-login">
             <div class="textfield">
                 <label for="email">E-mail</label>
                 <input id="email" type="text" name="email" placeholder="Email@.com">
@@ -28,6 +30,7 @@
             <div class="go-sign-up">
               <a href="{{url_for('cadastro')}}">Cadastre-se Aqui!!</a>
             </div>
+          </form>
         </div>
     </div>
   </div>

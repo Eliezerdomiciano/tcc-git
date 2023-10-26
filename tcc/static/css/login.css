@@ -43,6 +43,10 @@ body * {
     align-items: center;
 }
 
+.form-login {
+    display: contents;
+}
+
 .card-login{
     width: 60%;
     display: flex;

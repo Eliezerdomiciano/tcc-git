@@ -14,23 +14,30 @@
             </a>
         </li>
         <li>
-            <a href="#">
-                <i class="fas fa-cog"></i>
-                <span>Manutenção</span>
+            <a href="{{url_for('receipt')}}">
+                <i class="fas fa-receipt"></i>
+                <span>Recebimento</span>
             </a>
         </li>
         <li>
-            <a href="{{url_for('index')}}">
+            <a href="{{url_for('history')}}">
+                <i class="fas fa-history"></i>
+                <span>Histórico</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{url_for('about')}}">
                 <i class="fas fa-question-circle"></i>
                 <span>TCC</span>
             </a>
         </li>
         <li class="logout">
-            <a href="#">
+            <a href="{{url_for('index')}}">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Sair</span>
             </a>
         </li>
+        
     </ul>
 </div>
 <div class="dialog-div">
@@ -68,7 +75,7 @@
                     <form id="comprar-form">
                         <label for="quantidade">Quantidade:</label>
                         <input type="number" id="quantidade" min="0" value="0">
-                        <h2>Valor Total: R$<span id="valor-total">0.00</span></h2>
+                        <h2>Valor Total: R$<span id="preco_prod">0.00</span></h2>
                         <button id="btn-confirmar-compra">Confirmar Compra</button>
                     </form>
                 </td>

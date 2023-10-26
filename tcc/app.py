@@ -1,4 +1,14 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import (
+    Flask,
+    render_template,
+    request,
+    jsonify,
+    redirect,
+    url_for,
+    session,
+    flash,
+)
+
 from flask_session import Session
 from flask_login import (
     LoginManager,
@@ -9,19 +19,22 @@ from flask_login import (
     UserMixin,
 )
 from flask_bcrypt import Bcrypt
+from functools import wraps  # Importe 'wraps' para usar em decorações personalizadas
+
 
 import sqlite3
 
+# Resto do seu código
 
 app = Flask(__name__)
-# Configuração da extensão Flask-Session
+app.config["SESSION_COOKIE_SAMESITE"] = "None"
+app.config["SESSION_COOKIE_SECURE"] = True
 app.config["SESSION_TYPE"] = "filesystem"
 app.config["SECRET_KEY"] = "MinhaChaveSecreta"
 Session(app)
 bcrypt = Bcrypt(app)
-
-# Adicione as configurações do Flask-Login
 login_manager = LoginManager()
+login_manager.login_view = "login"  # Defina a rota de login
 login_manager.init_app(app)
 
 
@@ -84,10 +97,13 @@ def login():
         user = cursor.fetchone()
         conn.close()
 
-        if user and bcrypt.check_password_hash(user[4], senha):
-            user_obj = User(user[0])
-            login_user(user_obj)
+        if user and bcrypt.check_password_hash(user[5], senha):
+            # Login bem-sucedido: redirecionar para a página inicial
+            login_user(User(user[0]))
             return redirect(url_for("home"))
+
+        # Se a autenticação falhar, você pode exibir uma mensagem de erro com o Flash
+        flash("Falha na autenticação. Usuário ou senha incorretos", "error")
 
     return render_template("login.html")
 
@@ -100,30 +116,27 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/authenticate", methods=["POST"])
-def authenticate():
-    email = request.json.get("email")
-    senha = request.json.get("senha")
+# @app.route("/authenticate", methods=["POST"])
+# def authenticate():
+#     email = request.json.get("email")
+#     senha = request.json.get("senha")
 
-    # Conecte-se ao banco de dados SQLite
-    conn = sqlite3.connect("my_database.db")
-    cursor = conn.cursor()
+#     # Conecte-se ao banco de dados SQLite
+#     conn = sqlite3.connect("my_database.db")
+#     cursor = conn.cursor()
 
-    # Consulte o banco de dados para verificar as credenciais
-    cursor.execute("SELECT * FROM usuarios WHERE email = ?", (email,))
-    user = cursor.fetchone()
+#     # Consulte o banco de dados para verificar as credenciais
+#     cursor.execute("SELECT * FROM usuarios WHERE email = ?", (email,))
+#     user = cursor.fetchone()
 
-    if user and bcrypt.check_password_hash(user[4], senha):
-        autenticado = True
-    else:
-        autenticado = False
-
-    conn.close()
-
-    if autenticado:
-        return "Login bem-sucedido"
-    else:
-        return "Falha no login"
+#     if user and bcrypt.check_password_hash(user[5], senha):
+#         print("Senha correta")
+#         user_obj = User(user[0])
+#         login_user(user_obj)
+#         print("Usuário autenticado com sucesso")
+#         return redirect(url_for("home"))
+#     else:
+#         print("Falha na autenticação. Usuário ou senha incorretos.")
 
 
 @app.route("/cadastro", methods=["GET"])
@@ -140,19 +153,22 @@ def registration():
     cpf = dados["cpf"]
     senha = dados["senha"]
 
-    # Conecte ao banco de dados SQLite
+    # Conecte-se ao banco de dados SQLite
     conn = sqlite3.connect("my_database.db")
     cursor = conn.cursor()
 
-    # Insira os dados na tabela de usuários
+    # Crie o hash da senha
+    senha_hash = bcrypt.generate_password_hash(senha).decode("utf-8")
+
+    # Insira os dados na tabela de usuários com a senha já hasheada
     cursor.execute(
         "INSERT INTO usuarios (nome, sobrenome, email, cpf, senha) VALUES (?, ?, ?, ?, ?)",
-        (nome, sobrenome, email, cpf, senha),
+        (nome, sobrenome, email, cpf, senha_hash),
     )
     conn.commit()
     conn.close()
 
-    return "Cadastro realizado com sucesso!"
+    return "Cadastro realizado com sucesso!"
 
 
 @app.route("/stock", methods=["GET", "POST"])
@@ -173,4 +189,31 @@ def stock():
 @app.route("/home")
 @login_required
 def home():
+    if current_user.is_authenticated:
+        print("Usuário autenticado. Acesso permitido.")
+    else:
+        print("Usuário não autenticado. Acesso negado.")
     return render_template("principal.html")
+
+
+@app.route("/history")
+@login_required
+def history():
+    return render_template("historico.html")
+
+
+@app.route("/receipt")
+@login_required
+def receipt():
+    return render_template("recebimento.html")
+
+
+@app.route("/about")
+@login_required
+def about():
+    return render_template("sobre.html")
+
+
+if __name__ == "__main__":
+    app.secret_key = "your_secret_key_here"
+    app.run(debug=True)
