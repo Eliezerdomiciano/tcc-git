@@ -16,35 +16,27 @@
 <div class="tabular--wrapper">
     <h3 class="main--title">Histórico de Buscas <br> de Produtos</h3>
     <div class="table-container">
-        <table>
+        <table id="historico-table">
             <thead>
-            <tr>
-                <th id="qtd-estoque">Qtd. Estoque</th>
-                <th id="preco">Preço Un.</th>
-                <th id="fornecedor">Fornecedor</th>
-                <th id="nome">Nome do Produto</th>
-                <th id="os">Ordem de Serviço</th>
-                <th id="link">Link</th>
-                <th></th>
-                <th class="pesquisar">Pesquisar</th>
-            </tr>
-
-            <tbody>
                 <tr>
-                    <td>10pç</td>
-                    <td>R$1.000,00</td>
-                    <td>Amazon</td>
-                    <td>Poco f5</td>
-                    <td>OS10000</td>
-                    <td>https:\\amazon.com.br</td>
-                    <td></td>
-                    <td>
-                        <button class="btn btn-sm" id="btn-pesquisar">Pesquisar</button>
-                        
-                    </td>
+                    <th>Preço Un.</th>
+                    <th>Fornecedor</th>
+                    <th>Nome do Produto</th>
+                    <th>Link</th>
                 </tr>
+            </thead>
+            <tbody id="historico-body">
+                {% for item in historico_itens %}
+                <tr>
+                    <td>R${{ item[1] }},00</td> <!-- preço -->
+                    <td>{{ item[2] }}</td> <!-- fornecedor -->
+                    <td>{{ item[3] }}</td> <!-- nome_produto -->
+                    <td><a href="{{ item[4] }}" target="_blank" class="link-a">{{ item[4] }}</a></td> <!-- link -->
+
+                </tr>
+                {% endfor %}
             </tbody>
-            
-        </thead>
+
+            </tbody>
         </table>
 {% endblock %}

@@ -16,15 +16,32 @@ document.getElementById("btn-pesquisar").addEventListener("click", function() {
             <td id="fornecedor_prod">${dados.fornecedor}</td>
             <td>
                 <button id="btn-close" data-action="fecharModal">Fechar</button>
-                <button id="btn-comprar" data-action="abrirModalCompra">Comprar</button>
+                <button id="btn-comprar" data-action="Comprar">Comprar</button>
             </td>
         `;
         tbody.appendChild(row);
 
         modal.showModal();
+        
+        // Event listener para adicionar ao histórico
+        document.getElementById("btn-comprar").addEventListener("click", function() {
+            fetch('/adicionar_ao_historico', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dados),
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log(result.message); // Pode lidar com a resposta do servidor
+            });
+        });
     });
 });
 
+
+// Resto do seu código JavaScript
 // Ouvinte de evento para os botões dentro da tabela modal
 document.querySelector(".tbody-modal").addEventListener("click", function(event) {
     if (event.target.getAttribute("data-action") === "fecharModal") {

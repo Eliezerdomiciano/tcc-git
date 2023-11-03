@@ -13,6 +13,7 @@ from flask_session import Session
 from flask_login import (
     LoginManager,
     login_user,
+    logout_user,
     login_required,
     current_user,
     logout_user,
@@ -65,6 +66,26 @@ cursor.execute(
     )
 """
 )
+
+# Conectando ao banco de dados SQLite
+conn = sqlite3.connect("my_database.db")
+cursor = conn.cursor()
+
+# Crie a tabela para armazenar o histórico de produtos, se ainda não existir
+cursor.execute(
+    """
+    CREATE TABLE IF NOT EXISTS Historico (
+        id INTEGER PRIMARY KEY,
+        preco TEXT,
+        fornecedor TEXT,
+        nome_produto TEXT,
+        link TEXT
+    )
+"""
+)
+
+conn.commit()
+conn.close()
 db.commit()
 
 
@@ -113,7 +134,8 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("login"))
+    flash("Logout realizado com sucesso", "success")
+    return redirect(url_for("index"))
 
 
 # @app.route("/authenticate", methods=["POST"])
@@ -185,6 +207,28 @@ def stock():
     return render_template("estoque.html")
 
 
+# Rota para adicionar ao histórico
+@app.route("/adicionar_ao_historico", methods=["POST"])
+def adicionar_ao_historico():
+    data = request.get_json()
+
+    conn = sqlite3.connect("my_database.db")
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "INSERT INTO Historico (preco, fornecedor, nome_produto, link) VALUES (?, ?, ?, ?)",
+        (data["preco"], data["fornecedor"], data["nome"], data["link"]),
+    )
+
+    conn.commit()
+    conn.close()
+
+    return jsonify({"message": "Dados adicionados ao histórico com sucesso"})
+
+
+# Resto do seu código Flask
+
+
 # Rota para a página principal (apenas acessível para usuários autenticados)
 @app.route("/home")
 @login_required
@@ -199,7 +243,13 @@ def home():
 @app.route("/history")
 @login_required
 def history():
-    return render_template("historico.html")
+    conn = sqlite3.connect("my_database.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Historico")
+    historico_itens = cursor.fetchall()
+    conn.close()
+
+    return render_template("historico.html", historico_itens=historico_itens)
 
 
 @app.route("/receipt")
