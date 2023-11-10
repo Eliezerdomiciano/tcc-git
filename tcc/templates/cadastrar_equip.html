@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../static/css/cadastrar.css">
+  <link rel="stylesheet" href="../static/css/button.css">
+  <link rel="stylesheet" href="../static/css/cadastrar_equip.css">
+  <link rel="stylesheet" href="../static/css/principal.css">
+  <title>sign-up equipament</title>
+</head>
+<body>
+<div class="main-sign-up">
+    <div class="left-sign-up">
+        <h1>Bem-vindo<br> a Página de Cadastro <br> de Equipamentos</h1>
+        <img src="../static/img/svg/sign-up.svg" alt="Estoque" class="left-sign-up-img">
+    </div>
+    <div class="right-sign-up">
+        <div class="card-sign-up">
+          <h1>Cadastro</h1>
+          
+                <div class="textfield">
+                    <label for="modelo">Modelo</label>
+                    <input id="modelo" type="text" name="modelo" placeholder="Modelo">
+                </div>
+                <div class="textfield">
+                    <label for="nome_cliente">Nome do Cliente</label>
+                    <input id="nome_cliente" type="text" name="nome_cliente" placeholder="Nome do Cliente">
+                </div>
+                <div class="textfield">
+                    <label for="cpf_cliente">CPF do Cliente</label>
+                    <input id="cpf_cliente" type="cpf_cliente" name="cpf_cliente" placeholder="CPF do Cliente">
+                </div>
+                <div class="textfield">
+                    <label for="marca">Marca</label>
+                    <input id="marca" type="text" name="marca" placeholder="Marca">
+                </div>
+                <div class="textfield">
+                    <label for="data_recebida">Data do Recebimento do Equipamento</label>
+                    <input id="data_recebida" type="date" name="data_recebida" placeholder="Data do Recebimento" required>
+                </div>
+                <div class="textfield">
+                    <label for="numero_serial">Nº Serial</label>
+                    <input id="numero_serial" type="text" name="numero_serial" placeholder="Numero Serial" required>
+                </div>
+                <button class="btn-sign-up" id="cadastrar">Cadastrar</button>
+                <div class="back-home">
+                    <a href="{{url_for('home')}}">
+                        <i class="fas fa-home"></i>
+                    </a>
+                 </div>
+        </div>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="../static/js/cadastrar.js"></script>
+</body>
+</html>

@@ -1,49 +1,83 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% include 'sidebar.html'%}
-<div class="main--content">
+{% include 'sidebar.html' %}
 
+<div class="main--content">
     <div class="header--wrapper">
         <div class="header--title">
             <span>Terceiro</span>
             <h2>Dashboard</h2>
         </div>
         <div class="user--info">
-        <img src="../static/img/minha.jpg" alt="">
+            <img src="../static/img/minha.jpg" alt="">
         </div>
     </div>
-<div class="tabular--wrapper">
-    <h3 class="main--title">Lista de Equipamentos <br> para Manuteção</h3>
-    <div class="table-container">
-        <table>
-            <thead>
-            <tr>
-                <th id="nome_cliente">Nome Cliente</th>
-                <th id="nomde_prod">Nome Produto</th>
-                <th id="marca">Marca</th>
-                <th id="numero_serial">Nº Serial</th>
-                <th id="os">Data Recebimento</th>
-                <th id="vl_orcamento">Orçamento</th>
-                <th class="Verificar">Status</th>
-            </tr>
-            <dialog>
-            <tbody>
-                <tr>
-                    <td>Eliezer</td>
-                    <td>Dvd 2din</td>
-                    <td>Pionner</td>
-                    <td>25846</td>
-                    <td>12/10/2023</td>
-                    <td>R$250,00</td>
-                    <td>
-                        <a class="btn btn-sm" id="btn-comprar">Aprovado</a>
-                        <a class="btn btn-sm" id="btn-cancelar">Reprovado</a>   
-                    </td>
-                </tr>
-            </tbody>
-            
-        </thead>
-        </table>
+    <div class="tabular--wrapper">
+        <h3 class="main--title">Lista de Equipamentos <br> para Manutenção</h3>
+        <div class="table-container">
+            <!-- Adicione um formulário com um campo de upload de arquivo -->
+                <form action="/processar_upload" method="post" enctype="multipart/form-data">
+                        <input type="file" name="excel_file" id="pesquisar-form" placeholder="">
+                        <button id="form-enviar" type="submit" value="Enviar arquivo" > Enviar arquivo</button>
+                    <!-- Remova o onclick do botão -->
 
+                </form>
+            <table>
+                    <thead>
+                        <tr>
+                            <th class="id">Id</th>
+                            <th class="modelo">Modelo</th>
+                            <th class="nome_cliente">Nome do Cliente</th>
+                            <th class="marca">Marca</th>
+                            <th class="data_recebida">Data Recebida</th>
+                            <th class="numero_serial">Nº Serial</th>
+                            <th class="orçar">Realizar Orçamento</th>
+                            <th><button type="submit" id="btn-adicionar" class="adicionar-equip">
+                                <a href="{{url_for('registration_equipament')}}">
+                                    <i class="fas fa-add"></i>
+                                </a>
+                            </button></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dados in dados_recebimento %}
+                            <tr>
+                                <td>{{ dados[0] }}</td>
+                                <td>{{ dados[1] }}</td>
+                                <td>{{ dados[2] }}</td>
+                                <td>{{ dados[4] }}</td>
+                                <td>{{ dados[5] }}</td>
+                                <td>{{ dados[6] }}</td> 
+                                <td>
+                                    <form method="post" action="{{ url_for('make_budget') }}" class="orcamento">
+                                        <input type="hidden" name="serial" value="{{ dados[6] }}">
+                                        <input type="hidden" name="cliente" value="{{ dados[2] }}">
+                                        <input type="hidden" name="modelo" value="{{ dados[1] }}">
+                                        <input type="hidden" name="data_recebida" value="{{ dados[5] }}">
+                                        <button type="submit" id="btn-orcamento">
+                                            <i class="fas fa-money-bill"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                
+                                                             
+                                <td>
+                                    <form method="post" action="/deletar_linha">
+                                        <input type="hidden" name="row_id" value="{{ dados[0] }}">
+                                        <button type="submit" id="btn-delete">
+                                            <a href="{{url_for('about')}}">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    
+                </table>
+        </div>
+    </div>
+</div>
 {% endblock %}

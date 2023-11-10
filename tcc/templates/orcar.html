@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../static/css/cadastrar.css">
+  <link rel="stylesheet" href="../static/css/button.css">
+  <link rel="stylesheet" href="../static/css/cadastrar_equip.css">
+  <link rel="stylesheet" href="../static/css/principal.css">
+  <link rel="stylesheet" href="../static/css/orcar.css">
+  <title>sign-up equipament</title>
+</head>
+<body>
+<div class="main-sign-up">
+    <div class="left-sign-up">
+        <h1>Bem-vindo<br> a Página de realização <br> do Orçamento</h1>
+        <img src="../static/img/svg/sign-up.svg" alt="Estoque" class="left-sign-up-img">
+    </div>
+    <div class="right-sign-up">
+        <div class="card-sign-up">
+          <h1>Criando Orçamento</h1>
+          
+            <!-- Formulário de orçamento -->
+                <form id="form-orcamento">
+                  <div class="textfield">
+                    <label for="valor">Valor do Orçamento</label>
+                    <input id="valor" type="float" name="valor" placeholder="Valor do Orçamento" required>
+                  </div>
+                  <div class="textfield">
+                    <label for="defeito">Defeito</label>
+                    <input id="defeito" type="text" name="defeito" placeholder="Defeito" required>
+                  </div>
+                  <div class="textfield">
+                    <label for="peca">Nome da Peça a ser Trocada</label>
+                    <input id="peca" type="text" name="peca" placeholder="Nome da Peça" required>
+                  </div>
+                  <div class="textfield">
+                    <label for="prazo">Prazo de Entrega (dias)</label>
+                    <input id="prazo" type="number" name="prazo" placeholder="Prazo de Entrega" required>
+                  </div>
+                  <button type="button" id="btn-salvar" onclick="salvarOrcamento()">Salvar</button>
+                </form>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+</html>

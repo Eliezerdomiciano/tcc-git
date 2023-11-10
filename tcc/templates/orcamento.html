@@ -1,0 +1,58 @@
+{% extends 'base.html'%}
+
+{% block content %}
+ {% include 'sidebar.html'%}
+<div class="main--content">
+
+    <div class="header--wrapper">
+        <div class="header--title">
+            <span>Quinto</span>
+            <h2>Dashboard</h2>
+        </div>
+        <div class="user--info">
+        <img src="../static/img/minha.jpg" alt="">
+        </div>
+    </div>
+<div class="tabular--wrapper">
+    <h3 class="main--title">Tabela de Orçamentos</h3>
+    <div class="table-container">
+        <table>
+            
+            <thead>
+                <tr>
+                    <th class="id">Id</th>
+                    <th class="modelo">Modelo</th>
+                    <th class="nome_cliente">Nome do Cliente</th>
+                    <th class="marca">Marca</th>
+                    <th class="data_recebida">Data Recebida</th>
+                    <th class="numero_serial">Nº Serial</th>
+                    <th class="valor_orçamento">Valor do Orçamento</th>
+                    <th>Status</th>
+                </tr>
+            </tr>
+
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Poco F5</td>
+                    <td>Ricardo</td>
+                    <td>Xiamoi</td>
+                    <td>2023-11-05</td>
+                    <td>1098</td>
+                    <td>R$2498,00</td>
+                        <td>
+                            <form method="post" action="">
+                                <button type="submit" id="btn-aprovado">Aprovado</button>
+                            </form>
+                            <form method="post" action="">
+                                <button type="submit" id="btn-reprovado">Reprovado</button>
+                            </form>
+                        </td>
+                        
+                    
+                </tr>
+            </tbody>
+            
+        </thead>
+        </table>
+{% endblock %}

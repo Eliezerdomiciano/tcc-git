@@ -1,4 +1,96 @@
+#btn-aprovado{
+    font-size: 8pt;
+    font-weight: 800;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    letter-spacing: 3px;
+    color: #2b134b;
+    background: #00ff88;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #00ff8052;
+    align-items: end;
+}
+
+
+#btn-delete a{
+    background: #514869;
+    color: #e41b6f;
+    font-size: 16pt;
+}
+
+#btn-delete a:hover{
+    background: #514869;
+    color: #9f0d4a;
+    font-size: 16pt;
+}
+
+#btn-orcamento a{
+    background: #514869;
+    color: #00ff88;
+    font-size: 16pt;
+}
+
+#btn-orcamento a:hover{
+    background: #514869;
+    color: #049954;
+    font-size: 16pt;
+}
+
+#btn-reprovado {
+    font-size: 8pt;
+    font-weight: 800;
+    padding: 10px;
+    margin: 25px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    letter-spacing: 3px;
+    color: #2b134b;
+    background: #e41b6f;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #4d062752;
+}
+
+#form-enviar:hover{
+    background: #05d373;
+}
+
+
 #btn-verificar {
+    font-size: 8pt;
+    font-weight: 800;
+    padding: 10px;
+    margin: 25px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    letter-spacing: 3px;
+    color: #2b134b;
+    background: #00ff88;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #00ff8052;
+    align-items: end;
+}
+
+#btn-salvar {
+    font-size: 8pt;
+    font-weight: 800;
+    padding: 10px;
+    margin: 25px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    letter-spacing: 3px;
+    color: #2b134b;
+    background: #00ff88;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #00ff8052;
+    align-items: end;
+}
+
+#btn-realizar {
     font-size: 8pt;
     font-weight: 800;
     padding: 10px;
@@ -44,6 +136,26 @@
     cursor: pointer;
     box-shadow: 0px 10px 40px -12px #00ff8052;
     align-items: end;
+}
+
+#btn-adicionar {
+    font-size: 8pt;
+    font-weight: 800;
+    padding: 10px;
+    margin: 0px 0px 0px 0px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    letter-spacing: 3px;
+    color: #2b134b;
+    background: #00ff88;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #00ff8052;
+    align-items: end;
+}
+
+#btn-adicionar:hover{
+    background: #02a257;
 }
 
 #btn-cancelar {

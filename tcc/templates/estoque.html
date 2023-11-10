@@ -9,10 +9,6 @@
             <span>Segundo</span>
             <h2>Dashboard</h2>
         </div>
-        <div class="button_add" style="color: #f0ffffde;">
-            <i class="fas fa-plus"></i>
-            <span>Adicionar Produtos</span>
-        </div>
         <div class="user--info">
         <img src="../static/img/minha.jpg" alt="">
         </div>
@@ -20,6 +16,13 @@
 <div class="tabular--wrapper">
     <h3 class="main--title">Produtos em Estoque</h3>
     <div class="table-container">
+        <!-- Adicione um formulário com um campo de upload de arquivo -->
+        <form action="/processar_upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="excel_file" id="pesquisar-form" placeholder="">
+            <button id="form-enviar" type="submit" value="Enviar arquivo" > Enviar arquivo</button>
+        <!-- Remova o onclick do botão -->
+
+    </form>
         <table>
             <thead>
             <tr>
@@ -29,12 +32,20 @@
                 <th id="nome">Nome do Produto</th>
                 <th></th>
                 <th class="pesquisar">Pesquisar</th>
+                <th>
+                    <button id="btn-adicionar" class="adicionar-equip">
+                        <a href="{{url_for('registration_equipament')}}">
+                            <i class="fas fa-add"></i>
+                        </a>
+                    </button>
+                    
+                </th>
             </tr>
 
             <tbody>
                 <tr>
                     <td>10pç</td>
-                    <td>R$1.000,00</td>
+                    <td>R$2.498,00</td>
                     <td>Amazon</td>
                     <td>Poco f5</td>
                     <td></td>
@@ -42,6 +53,7 @@
                         <button class="btn btn-sm" id="btn-pesquisar">Pesquisar</button>
                         
                     </td>
+                    <td></td>
                 </tr>
             </tbody>
             

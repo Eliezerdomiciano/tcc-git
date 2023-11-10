@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'sidebar.html' %}
+
+<div class="main--content">
+    <div class="header--wrapper">
+        <div class="header--title">
+            <span>Terceiro</span>
+            <h2>Dashboard</h2>
+        </div>
+        <div class="user--info">
+            <img src="../static/img/minha.jpg" alt="">
+        </div>
+    </div>
+    <div class="tabular--wrapper">
+        <h3 class="main--title">Detalhes do Orçamento</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Número Serial</th>
+                        <th>Nome do Cliente</th>
+                        <th>Modelo</th>
+                        <th>Data Recebida</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ serial }}</td>
+                        <td>{{ cliente }}</td>
+                        <td>{{ modelo }}</td>
+                        <td>{{ data_recebida }}</td>
+                        <td>
+                            <button type="button" id="btn-orcamento" onclick="redirecionarParaOrcar()">
+                                <i class="fas fa-money-bill"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    function redirecionarParaOrcar() {
+        window.location.href = "{{ url_for('orcar') }}";
+    }
+</script>
+{% endblock %}
